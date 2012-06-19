@@ -339,7 +339,7 @@ class Runner(object):
     def _execute_raw(self, conn, host, tmp):
         ''' execute a non-module command for bootstrapping, or if there's no python on a device '''
         stdout, stderr = self._exec_command( conn, self.module_args, tmp, sudoable = True )
-        data = dict(stdout=stdout.splitlines())
+        data = dict(stdout=stdout.replace("\r\n","\n").split("\n"))
         if stderr:
             data['stderr'] = stderr
         return (host, True, data, '')
